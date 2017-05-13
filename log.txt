@@ -1,0 +1,7 @@
+13/05/17 12:14, Error Message: No item with id 10 found.
+se.kth.ict.nextgenpos.exceptions.ItemNotFoundException: No item with id 10 found.
+	at se.kth.ict.nextgenpos.model.ProductCatalog.findSpecification(ProductCatalog.java:37)
+	at se.kth.ict.nextgenpos.controller.Controller.enterItem(Controller.java:60)
+	at se.kth.ict.nextgenpos.view.View.enterItem(View.java:35)
+	at se.kth.ict.nextgenpos.view.View.test(View.java:28)
+	at se.kth.ict.nextgenpos.startup.Main.main(Main.java:14)
