@@ -32,7 +32,7 @@ public class FileLogger implements Logger {
     public void logException(Exception exception) {
         StringBuilder logSB = new StringBuilder();
         logSB.append(this.dateFormat.format(new Date()));
-        logSB.append(", Error Message: ");
+        logSB.append(", Log Error Message: ");
         logSB.append(exception.getMessage());
         this.logFile.println(logSB);
         exception.printStackTrace(this.logFile);

@@ -25,9 +25,14 @@ public class ConsoleLogger implements Logger {
     public void logException(Exception exception) {
         StringBuilder logSB = new StringBuilder();
         logSB.append(this.dateFormat.format(new Date()));
-        logSB.append(", Error Message: ");
+        logSB.append(", Log Error Message: ");
         logSB.append(exception.getMessage());
         System.out.println(logSB);
-        exception.printStackTrace();
+        
+        StackTraceElement[] stackTrace = exception.getStackTrace();
+        for (StackTraceElement element : stackTrace) {
+            System.out.println(element);
+        }
+        System.out.println("");
     }
 }
