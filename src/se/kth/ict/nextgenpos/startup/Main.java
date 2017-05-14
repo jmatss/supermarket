@@ -2,7 +2,6 @@ package se.kth.ict.nextgenpos.startup;
 
 import se.kth.ict.nextgenpos.controller.Controller;
 import se.kth.ict.nextgenpos.view.View;
-import se.kth.ict.nextgenpos.util.LogHandler;
 
 /**
  * Starts the application.

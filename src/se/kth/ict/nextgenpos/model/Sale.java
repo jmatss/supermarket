@@ -11,6 +11,7 @@ public class Sale {
     private int currentTotal;
     private int payedAmount;
     private int iterator;
+    private ItemRegisteredObserver observer;
 
     /**
      * Instantiates a new <code>Sale</code>.
@@ -20,7 +21,7 @@ public class Sale {
     }
 
     /**
-     * Adds new items to the current <code>Sale</code>. 
+     * Adds new items to the current <code>Sale</code> and notifies observer. 
      *
      * @param spec            The specification of the items that is added.
      * @param quantity        The number of items.
@@ -29,6 +30,20 @@ public class Sale {
 	SalesLineItem lineItem = new SalesLineItem(spec, quantity);
 	lineItems.add(lineItem);
 	addToTotal(lineItem);
+        
+        notifyObserver(lineItem);
+    }
+    
+    private void notifyObserver(SalesLineItem item) {
+        this.observer.itemRegistered(item);
+    }
+    
+     /**
+     * Adds a ItemRegisteredObserver.
+     * @param observer The specified observer
+     */
+    public void addItemRegisteredObserver(ItemRegisteredObserver observer) {
+        this.observer = observer;
     }
 
     private void addToTotal(SalesLineItem lineItem) {

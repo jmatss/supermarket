@@ -7,6 +7,7 @@ import se.kth.ict.nextgenpos.model.Receipt;
 import se.kth.ict.nextgenpos.model.ProductCatalog;
 import se.kth.ict.nextgenpos.model.ProductSpecification;
 import se.kth.ict.nextgenpos.util.*;
+import se.kth.ict.nextgenpos.model.ItemRegisteredObserver;
 
 /**
  * The controller of the application. This is the sole controller, all calls to the
@@ -15,18 +16,23 @@ import se.kth.ict.nextgenpos.util.*;
 public class Controller {
     private Sale sale;
     private ProductCatalog catalog;
-    private LogHandler logHandler;
+    private Logger logger;
+    private ItemRegisteredObserver observer;
 
     /**
      * Instantiates a new <code>Controller</code>.
      */
     public Controller() {
-	catalog = new ProductCatalog();
-        try {
-            this.logHandler = new LogHandler();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+	catalog = ProductCatalog.getProductCatalog();
+        this.logger = new FileLogger();
+    }
+    
+    /**
+     * Adds an ItemRegisteredObserver that gets notified when a new item is registered.
+     * @param observer The specified observer.
+     */
+    public void addItemRegisteredObserver(ItemRegisteredObserver observer) {
+        this.observer = observer;
     }
     
     /**
@@ -37,6 +43,7 @@ public class Controller {
      */
     public void makeNewSale() {
 	sale = new Sale();
+        this.sale.addItemRegisteredObserver(this.observer);
     }
 
     /**
@@ -59,7 +66,7 @@ public class Controller {
         try {
             spec = catalog.findSpecification(itemId);
         } catch (ItemNotFoundException e) {
-            this.logHandler.logException(e);
+            this.logger.logException(e);
             throw new OperationFailedException("The item couldn't be added to your sale!", e);
         }
         

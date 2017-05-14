@@ -10,17 +10,25 @@ import se.kth.ict.nextgenpos.exceptions.*;
 public class ProductCatalog { 
     private Map<Integer, ProductSpecification> products = 
 	new HashMap<Integer, ProductSpecification>();
+    private static final ProductCatalog PRODUCT_CATALOG = new ProductCatalog();
 
     /**
      * Fills the catalog with some dummy items.
      */
-    public ProductCatalog() {
+    private ProductCatalog() {
 	products.put(1, new ProductSpecification(1, "low fat milk", 
 	   "a very long description, a very long description, a very long description", 10));
 	products.put(2, new ProductSpecification(2, "butter", 
 	   "a very long description, a very long description, a very long description", 10));
 	products.put(3, new ProductSpecification(3, "bread", 
 	   "a very long description, a very long description, a very long description", 10));
+    }
+    
+    /**
+     * @return the only instance of ProductCatalog
+     */
+    public static ProductCatalog getProductCatalog () {
+        return PRODUCT_CATALOG;
     }
 
     /**
