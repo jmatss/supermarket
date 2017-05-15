@@ -10,10 +10,9 @@ import se.kth.ict.nextgenpos.model.SalesLineItem;
 /**
  * A placeholder for the view.
  */
-public class View implements ItemRegisteredObserver{
+public class View {
     private Controller cont;
     private ErrorMessageHandler errorMessageHandler;
-    private ArrayList<SalesLineItem> itemsRegistered;
 
     /**
      * Creates a new <code>View</code>.
@@ -22,24 +21,13 @@ public class View implements ItemRegisteredObserver{
     public View(Controller cont) {
 	this.cont = cont;
         this.errorMessageHandler = new ErrorMessageHandler();
-        this.itemsRegistered = new ArrayList<>();
-    }
-    
-    /**
-     * Called when a new item is added to the sale.
-     * @param item The specified item added
-     */
-    @Override
-    public void itemRegistered(SalesLineItem item) {
-        this.itemsRegistered.add(item);
-        printItemsRegistered();
     }
 
     /**
      * Simulates a view. Makes some calls to the controller.
      */
     public void test() {
-        cont.addItemRegisteredObserver(this);
+        cont.addItemRegisteredObserver(new ItemsRegisteredDisplay());
 	cont.makeNewSale();
 	enterItem(1);
 	enterItem(10);
@@ -54,13 +42,5 @@ public class View implements ItemRegisteredObserver{
         } catch (OperationFailedException e) {
             this.errorMessageHandler.printErrorMessage(e.getMessage());
         }
-    }
-    
-    private void printItemsRegistered () {
-        System.out.println("--- Registered items: ---");
-        for (SalesLineItem item : itemsRegistered) {
-            System.out.println(item + "\n");
-        }
-        System.out.println("---");
     }
 }
